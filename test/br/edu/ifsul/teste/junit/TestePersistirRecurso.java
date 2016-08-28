@@ -5,10 +5,9 @@
  */
 package br.edu.ifsul.teste.junit;
 
+import br.edu.ifsul.jpa.EntityManagerUtil;
 import br.edu.ifsul.modelo.Recurso;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
@@ -19,8 +18,6 @@ import org.junit.Test;
  * @author Felipe
  */
 public class TestePersistirRecurso {
-        
-    EntityManagerFactory emf;
     EntityManager em;
     
     public TestePersistirRecurso() {
@@ -28,14 +25,12 @@ public class TestePersistirRecurso {
     
     @Before
     public void setUp() {
-        emf = Persistence.createEntityManagerFactory("DAW-Trab-E1-ModelPU");
-        em = emf.createEntityManager();
+        em = EntityManagerUtil.getEntityManager();
     }
     
     @After
     public void tearDown() {
         em.close();
-        emf.close();
     }
     
     @Test

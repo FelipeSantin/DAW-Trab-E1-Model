@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifsul.teste.junit;
 
 import br.edu.ifsul.jpa.EntityManagerUtil;
 import br.edu.ifsul.modelo.Condominio;
+import br.edu.ifsul.modelo.Recurso;
 import javax.persistence.EntityManager;
 import junit.framework.Assert;
 import org.junit.After;
@@ -17,10 +13,10 @@ import org.junit.Test;
  *
  * @author Felipe
  */
-public class TestePersistirCondominio {
+public class TestePersisirCondRec {
     EntityManager em;
     
-    public TestePersistirCondominio() {
+    public TestePersisirCondRec() {
     }
     
     @Before
@@ -37,11 +33,12 @@ public class TestePersistirCondominio {
     public void teste(){
         boolean exception = false; // variavel que vai armazenar o resultado do teste
         try {
-            Condominio c = new Condominio();
-            c.setNome("Condominio 1");
-            c.setEndereco("Centro");
-            c.setNumero("2");
-            c.setCep("12093");
+            Condominio c = em.find(Condominio.class, 1);
+            
+            Recurso r = em.find(Recurso.class, 1);
+            
+            c.getCond_Rec().add(r);
+            
             em.getTransaction().begin();
             em.persist(c);
             em.getTransaction().commit();
@@ -53,5 +50,5 @@ public class TestePersistirCondominio {
         Assert.assertEquals(false, exception);
         
     }
- 
+    
 }

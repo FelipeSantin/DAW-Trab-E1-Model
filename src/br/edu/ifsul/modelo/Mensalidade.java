@@ -13,6 +13,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,6 +28,7 @@ import javax.persistence.TemporalType;
  */
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "mensalidade")
 public class Mensalidade implements Serializable{
     @Id
@@ -41,7 +46,10 @@ public class Mensalidade implements Serializable{
     @Temporal(TemporalType.DATE)
     @Column(name = "vencimentoPagamento", nullable = false)
     private Calendar vencimentoPagamento;
-
+    @ManyToOne
+    @JoinColumn(name="aluguel_id", referencedColumnName = "id", nullable = false)
+    private Aluguel aluguel;
+    
     public Mensalidade() {
     }
 
@@ -108,6 +116,14 @@ public class Mensalidade implements Serializable{
             return false;
         }
         return true;
+    }
+
+    public Aluguel getAluguel() {
+        return aluguel;
+    }
+
+    public void setAluguel(Aluguel aluguel) {
+        this.aluguel = aluguel;
     }
 
 }

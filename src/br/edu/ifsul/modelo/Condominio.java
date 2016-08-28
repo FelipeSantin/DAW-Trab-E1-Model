@@ -6,12 +6,17 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -51,6 +56,13 @@ public class Condominio implements Serializable{
     @NotBlank(message = "O cep não pode ser em branco")
     @Column(name = "cep", nullable = false, length = 9)         
     private String cep;
+    @ManyToMany
+    @JoinTable(name = "condrec",
+               joinColumns = 
+                    @JoinColumn(name = "condominio", referencedColumnName = "id", nullable = false),
+               inverseJoinColumns = 
+                    @JoinColumn(name = "recurso", referencedColumnName = "id", nullable = false))
+    private List<Recurso> Cond_Rec = new ArrayList<>();
 
     public Condominio() {
     }
@@ -118,6 +130,14 @@ public class Condominio implements Serializable{
             return false;
         }
         return true;
+    }
+
+    public List<Recurso> getCond_Rec() {
+        return Cond_Rec;
+    }
+
+    public void setCond_Rec(List<Recurso> Cond_Rec) {
+        this.Cond_Rec = Cond_Rec;
     }
     
     

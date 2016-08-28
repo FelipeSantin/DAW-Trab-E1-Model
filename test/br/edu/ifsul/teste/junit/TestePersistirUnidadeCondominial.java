@@ -6,7 +6,7 @@
 package br.edu.ifsul.teste.junit;
 
 import br.edu.ifsul.jpa.EntityManagerUtil;
-import br.edu.ifsul.modelo.Condominio;
+import br.edu.ifsul.modelo.UnidadeCondominial;
 import javax.persistence.EntityManager;
 import junit.framework.Assert;
 import org.junit.After;
@@ -17,15 +17,15 @@ import org.junit.Test;
  *
  * @author Felipe
  */
-public class TestePersistirCondominio {
+public class TestePersistirUnidadeCondominial {
     EntityManager em;
     
-    public TestePersistirCondominio() {
+    public TestePersistirUnidadeCondominial() {
     }
     
     @Before
     public void setUp() {
-        em = EntityManagerUtil.getEntityManager();
+        em = EntityManagerUtil.getEntityManager();    
     }
     
     @After
@@ -37,13 +37,14 @@ public class TestePersistirCondominio {
     public void teste(){
         boolean exception = false; // variavel que vai armazenar o resultado do teste
         try {
-            Condominio c = new Condominio();
-            c.setNome("Condominio 1");
-            c.setEndereco("Centro");
-            c.setNumero("2");
-            c.setCep("12093");
+            UnidadeCondominial uc = new UnidadeCondominial();
+            uc.setDescricao("predio");
+            uc.setNumero("11");
+            uc.setNumeroquarto("15");
+            uc.setArea(400.0);
+            
             em.getTransaction().begin();
-            em.persist(c);
+            em.persist(uc);
             em.getTransaction().commit();
         } catch(Exception e){
             exception = true;

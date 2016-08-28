@@ -6,7 +6,7 @@
 package br.edu.ifsul.teste.junit;
 
 import br.edu.ifsul.jpa.EntityManagerUtil;
-import br.edu.ifsul.modelo.Condominio;
+import br.edu.ifsul.modelo.Locatario;
 import javax.persistence.EntityManager;
 import junit.framework.Assert;
 import org.junit.After;
@@ -17,15 +17,15 @@ import org.junit.Test;
  *
  * @author Felipe
  */
-public class TestePersistirCondominio {
+public class TestePersistirLocatario {
     EntityManager em;
     
-    public TestePersistirCondominio() {
+    public TestePersistirLocatario() {
     }
     
     @Before
     public void setUp() {
-        em = EntityManagerUtil.getEntityManager();
+        em = EntityManagerUtil.getEntityManager();    
     }
     
     @After
@@ -37,13 +37,17 @@ public class TestePersistirCondominio {
     public void teste(){
         boolean exception = false; // variavel que vai armazenar o resultado do teste
         try {
-            Condominio c = new Condominio();
-            c.setNome("Condominio 1");
-            c.setEndereco("Centro");
-            c.setNumero("2");
-            c.setCep("12093");
+            Locatario l = new Locatario();
+            l.setNome("Joao");
+            l.setCpf("717.501.471-65");
+            l.setEmail("asd@asd.asd");
+            l.setTelefone("12345678");
+            l.setRenda(1000.0);
+            l.setLocaltrabalho("Centro");
+            l.setTelefonetrabalho("87654321");
+            
             em.getTransaction().begin();
-            em.persist(c);
+            em.persist(l);
             em.getTransaction().commit();
         } catch(Exception e){
             exception = true;

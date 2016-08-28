@@ -6,7 +6,8 @@
 package br.edu.ifsul.teste.junit;
 
 import br.edu.ifsul.jpa.EntityManagerUtil;
-import br.edu.ifsul.modelo.Condominio;
+import br.edu.ifsul.modelo.Aluguel;
+import java.util.Calendar;
 import javax.persistence.EntityManager;
 import junit.framework.Assert;
 import org.junit.After;
@@ -17,15 +18,15 @@ import org.junit.Test;
  *
  * @author Felipe
  */
-public class TestePersistirCondominio {
+public class TestePersistirAluguel {
     EntityManager em;
     
-    public TestePersistirCondominio() {
+    public TestePersistirAluguel() {
     }
     
     @Before
     public void setUp() {
-        em = EntityManagerUtil.getEntityManager();
+        em = EntityManagerUtil.getEntityManager();    
     }
     
     @After
@@ -37,13 +38,13 @@ public class TestePersistirCondominio {
     public void teste(){
         boolean exception = false; // variavel que vai armazenar o resultado do teste
         try {
-            Condominio c = new Condominio();
-            c.setNome("Condominio 1");
-            c.setEndereco("Centro");
-            c.setNumero("2");
-            c.setCep("12093");
+            Aluguel a = new Aluguel();
+            a.setInicioContrato(Calendar.getInstance());
+            a.setFimContrato(Calendar.getInstance());
+            a.setValor(20.0);
+            a.setDiaVencimento(1);
             em.getTransaction().begin();
-            em.persist(c);
+            em.persist(a);
             em.getTransaction().commit();
         } catch(Exception e){
             exception = true;

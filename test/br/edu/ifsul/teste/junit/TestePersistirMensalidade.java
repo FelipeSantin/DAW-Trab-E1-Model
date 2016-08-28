@@ -5,11 +5,11 @@
  */
 package br.edu.ifsul.teste.junit;
 
+import br.edu.ifsul.jpa.EntityManagerUtil;
+import br.edu.ifsul.modelo.Aluguel;
 import br.edu.ifsul.modelo.Mensalidade;
 import java.util.Calendar;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
@@ -20,8 +20,6 @@ import org.junit.Test;
  * @author Felipe
  */
 public class TestePersistirMensalidade {
-        
-    EntityManagerFactory emf;
     EntityManager em;
     
     public TestePersistirMensalidade() {
@@ -29,25 +27,25 @@ public class TestePersistirMensalidade {
     
     @Before
     public void setUp() {
-        emf = Persistence.createEntityManagerFactory("DAW-Trab-E1-ModelPU");
-        em = emf.createEntityManager();
+        em = EntityManagerUtil.getEntityManager();    
     }
     
     @After
     public void tearDown() {
         em.close();
-        emf.close();
     }
     
     @Test
     public void teste(){
         boolean exception = false; // variavel que vai armazenar o resultado do teste
         try {
+            Aluguel a = em.find(Aluguel.class, 1);
             Mensalidade m = new Mensalidade();
             m.setValor(2.0);
             m.setValorPagamento(0.0);
             m.setVencimento(Calendar.getInstance());
             m.setVencimentoPagamento(Calendar.getInstance());
+            m.setAluguel(a);
             em.getTransaction().begin();
             em.persist(m);
             em.getTransaction().commit();
