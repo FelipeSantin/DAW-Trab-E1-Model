@@ -6,10 +6,7 @@
 package br.edu.ifsul.teste.junit;
 
 import br.edu.ifsul.jpa.EntityManagerUtil;
-import br.edu.ifsul.modelo.Aluguel;
-import br.edu.ifsul.modelo.Locatario;
-import br.edu.ifsul.modelo.UnidadeCondominial;
-import java.util.Calendar;
+import br.edu.ifsul.modelo.Pessoa;
 import javax.persistence.EntityManager;
 import junit.framework.Assert;
 import org.junit.After;
@@ -20,10 +17,10 @@ import org.junit.Test;
  *
  * @author Felipe
  */
-public class TestePersistirAluguel {
+public class TestePersistirPessoa {
     EntityManager em;
     
-    public TestePersistirAluguel() {
+    public TestePersistirPessoa() {
     }
     
     @Before
@@ -40,18 +37,13 @@ public class TestePersistirAluguel {
     public void teste(){
         boolean exception = false; // variavel que vai armazenar o resultado do teste
         try {
-            Locatario l = em.find(Locatario.class, 2);
-            UnidadeCondominial uc = em.find(UnidadeCondominial.class, 2);
-            
-            Aluguel a = new Aluguel();
-            a.setInicioContrato(Calendar.getInstance());
-            a.setFimContrato(Calendar.getInstance());
-            a.setValor(20.0);
-            a.setDiaVencimento(1);
-            a.setLocatario(l);
-            a.setUnidadeCond(uc);
+            Pessoa p = new Pessoa();
+            p.setNome("Joao");
+            p.setCpf("717.501.471-65");
+            p.setEmail("asd@asd.asd");
+            p.setTelefone("12345678");
             em.getTransaction().begin();
-            em.persist(a);
+            em.persist(p);
             em.getTransaction().commit();
         } catch(Exception e){
             exception = true;

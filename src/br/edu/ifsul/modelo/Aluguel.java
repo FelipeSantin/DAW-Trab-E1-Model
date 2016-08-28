@@ -19,6 +19,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -54,6 +56,12 @@ public class Aluguel implements Serializable {
     private Integer diaVencimento;
     @OneToMany(mappedBy = "aluguel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Mensalidade> mensalidades = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name="locatario_id", referencedColumnName = "id", nullable = false)
+    private Locatario locatario;
+    @ManyToOne
+    @JoinColumn(name="unidadecond_id", referencedColumnName = "id", nullable = false)
+    private UnidadeCondominial unidadeCond;
     
     public void adicionarMensalidade(Mensalidade obj){
         obj.setAluguel(this);
@@ -138,6 +146,22 @@ public class Aluguel implements Serializable {
 
     public void setMensalidades(List<Mensalidade> mensalidades) {
         this.mensalidades = mensalidades;
+    }
+
+    public Locatario getLocatario() {
+        return locatario;
+    }
+
+    public void setLocatario(Locatario locatario) {
+        this.locatario = locatario;
+    }
+
+    public UnidadeCondominial getUnidadeCond() {
+        return unidadeCond;
+    }
+
+    public void setUnidadeCond(UnidadeCondominial unidadeCond) {
+        this.unidadeCond = unidadeCond;
     }
     
 }

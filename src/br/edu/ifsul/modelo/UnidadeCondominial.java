@@ -6,12 +6,19 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -36,10 +43,9 @@ public class UnidadeCondominial implements Serializable {
     @NotBlank(message = "O número não pode ser em branco")
     @Column(name = "numero", nullable = false, length = 20)
     private String numero;
-    @Length(max = 50, message = "A descricao não pode ter mais de {max} caracteres")
     @NotNull(message = "A descricao não pode ser nulo")
     @NotBlank(message = "A descricao não pode ser em branco")
-    @Column(name = "descricao", nullable = false, length = 50, columnDefinition = "text")
+    @Column(name = "descricao", nullable = false, columnDefinition = "text")
     private String descricao;
     @NotNull(message = "A area não pode ser nulo")
     @Column(name = "area", nullable = false)
@@ -47,6 +53,48 @@ public class UnidadeCondominial implements Serializable {
     @NotNull(message = "O Nº do quarto não pode ser nulo")
     @Column(name = "numeroquarto", nullable = false, length = 50)     
     private String numeroquarto;
+    @OneToMany(mappedBy = "unidadeCond", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Aluguel> alugueis = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name="pessoa_id", referencedColumnName = "id", nullable = false)
+    private Pessoa pessoa;
+    @ManyToOne
+    @JoinColumn(name="condominio_id", referencedColumnName = "id", nullable = false)
+    private Condominio condominio;
+
+    public List<Aluguel> getAlugueis() {
+        return alugueis;
+    }
+
+    public void setAlugueis(List<Aluguel> alugueis) {
+        this.alugueis = alugueis;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public Condominio getCondominio() {
+        return condominio;
+    }
+
+    public void setCondominio(Condominio condominio) {
+        this.condominio = condominio;
+    }
+    
+    public void adicionarAluguel(Aluguel obj){
+        obj.setUnidadeCond(this);
+        this.alugueis.add(obj);
+    }
+
+    public void removerAluguel(int index){
+        this.alugueis.remove(index);
+    }
+
     
 
     public UnidadeCondominial() {

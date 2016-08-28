@@ -9,14 +9,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -63,7 +66,17 @@ public class Condominio implements Serializable{
                inverseJoinColumns = 
                     @JoinColumn(name = "recurso", referencedColumnName = "id", nullable = false))
     private List<Recurso> Cond_Rec = new ArrayList<>();
+    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<UnidadeCondominial> unidadesCond = new ArrayList<>();
 
+    public void adicionarUnidadesCond(UnidadeCondominial obj){
+        obj.setCondominio(this);
+        this.unidadesCond.add(obj);
+    }
+
+    public void removerUnidadesCond(int index){
+        this.unidadesCond.remove(index);
+    }
     public Condominio() {
     }
 
@@ -138,6 +151,14 @@ public class Condominio implements Serializable{
 
     public void setCond_Rec(List<Recurso> Cond_Rec) {
         this.Cond_Rec = Cond_Rec;
+    }
+
+    public List<UnidadeCondominial> getUnidadesCond() {
+        return unidadesCond;
+    }
+
+    public void setUnidadesCond(List<UnidadeCondominial> unidadesCond) {
+        this.unidadesCond = unidadesCond;
     }
     
     

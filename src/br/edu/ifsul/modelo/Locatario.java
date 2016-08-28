@@ -6,8 +6,13 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -32,6 +37,18 @@ public class Locatario extends Pessoa implements Serializable {
     @NotBlank(message = "O O telefone do trabalho não pode ser em branco")
     @Column(name = "telefonetrabalho", nullable = false, length = 16)
     private String telefonetrabalho;
+    @OneToMany(mappedBy = "locatario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Aluguel> alugueis = new ArrayList<>();
+    
+    public void adicionarAlugueis(Aluguel obj){
+        obj.setLocatario(this);
+        this.alugueis.add(obj);
+    }
+
+    public void removerAlugueis(int index){
+        this.alugueis.remove(index);
+    }
+
     
     public Locatario() {
     }
