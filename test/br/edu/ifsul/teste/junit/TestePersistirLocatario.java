@@ -1,8 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * TESTES INICIAIS, PODE OCORRER ERROS DE ID
+ * UTILIZAR TESTECOMPLETO
  */
+
 package br.edu.ifsul.teste.junit;
 
 import br.edu.ifsul.jpa.EntityManagerUtil;

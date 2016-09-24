@@ -6,19 +6,14 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -53,22 +48,12 @@ public class UnidadeCondominial implements Serializable {
     @NotNull(message = "O Nº do quarto não pode ser nulo")
     @Column(name = "numeroquarto", nullable = false, length = 50)     
     private Integer numeroquarto;
-    @OneToMany(mappedBy = "unidadeCond", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Aluguel> alugueis = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name="pessoa_id", referencedColumnName = "id", nullable = false)
     private Pessoa pessoa;
     @ManyToOne
     @JoinColumn(name="condominio_id", referencedColumnName = "id", nullable = false)
     private Condominio condominio;
-
-    public List<Aluguel> getAlugueis() {
-        return alugueis;
-    }
-
-    public void setAlugueis(List<Aluguel> alugueis) {
-        this.alugueis = alugueis;
-    }
 
     public Pessoa getPessoa() {
         return pessoa;
@@ -85,16 +70,6 @@ public class UnidadeCondominial implements Serializable {
     public void setCondominio(Condominio condominio) {
         this.condominio = condominio;
     }
-    
-    public void adicionarAluguel(Aluguel obj){
-        obj.setUnidadeCond(this);
-        this.alugueis.add(obj);
-    }
-
-    public void removerAluguel(int index){
-        this.alugueis.remove(index);
-    }
-
     
 
     public UnidadeCondominial() {

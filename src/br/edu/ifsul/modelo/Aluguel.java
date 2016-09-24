@@ -42,7 +42,6 @@ public class Aluguel implements Serializable {
             allocationSize = 1)
     @GeneratedValue(generator = "seq_aluguel", strategy = GenerationType.SEQUENCE)
     private Integer id;
-    //@NotNull(message = "O valor não pode ser nulo")
     @Column(name = "valor", nullable = false)
     private Double valor;
     @Temporal(TemporalType.DATE)

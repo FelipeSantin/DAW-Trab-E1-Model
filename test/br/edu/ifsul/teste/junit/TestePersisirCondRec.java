@@ -1,3 +1,8 @@
+/**
+ * TESTES INICIAIS, PODE OCORRER ERROS DE ID
+ * UTILIZAR TESTECOMPLETO
+ */
+
 package br.edu.ifsul.teste.junit;
 
 import br.edu.ifsul.jpa.EntityManagerUtil;
