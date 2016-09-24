@@ -52,7 +52,7 @@ public class UnidadeCondominial implements Serializable {
     private Double area;
     @NotNull(message = "O Nº do quarto não pode ser nulo")
     @Column(name = "numeroquarto", nullable = false, length = 50)     
-    private String numeroquarto;
+    private Integer numeroquarto;
     @OneToMany(mappedBy = "unidadeCond", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Aluguel> alugueis = new ArrayList<>();
     @ManyToOne
@@ -132,11 +132,11 @@ public class UnidadeCondominial implements Serializable {
         this.area = area;
     }
 
-    public String getNumeroquarto() {
+    public Integer getNumeroquarto() {
         return numeroquarto;
     }
 
-    public void setNumeroquarto(String numeroquarto) {
+    public void setNumeroquarto(Integer numeroquarto) {
         this.numeroquarto = numeroquarto;
     }
 

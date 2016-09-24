@@ -49,7 +49,7 @@ public class TestePersistirUnidadeCondominial {
             UnidadeCondominial uc = new UnidadeCondominial();
             uc.setDescricao("predio");
             uc.setNumero("11");
-            uc.setNumeroquarto("15");
+            uc.setNumeroquarto(15);
             uc.setArea(400.0);
             uc.setPessoa(p);
             uc.setCondominio(c);
