@@ -21,6 +21,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -36,16 +37,21 @@ public class Mensalidade implements Serializable{
             allocationSize = 1)
     @GeneratedValue(generator = "seq_Mensalidade", strategy = GenerationType.SEQUENCE)
     private Integer id;
+    @NotNull(message = "O Valor não pode ser nulo")
     @Column(name = "valor", nullable = false)
     private Double valor;
+    @NotNull(message = "A Data não pode ser nula")
     @Temporal(TemporalType.DATE)
     @Column(name = "vencimento", nullable = false)
     private Calendar vencimento;
+    @NotNull(message = "O Valor Pagamento não pode ser nulo")
     @Column(name = "valorPagamento", nullable = false)
     private Double valorPagamento;
+    @NotNull(message = "O Vencimento Pagamento não pode ser nulo")
     @Temporal(TemporalType.DATE)
     @Column(name = "vencimentoPagamento", nullable = false)
     private Calendar vencimentoPagamento;
+    @NotNull(message = "O Aluguel não pode ser nulo")
     @ManyToOne
     @JoinColumn(name="aluguel_id", referencedColumnName = "id", nullable = false)
     private Aluguel aluguel;

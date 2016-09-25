@@ -48,9 +48,11 @@ public class UnidadeCondominial implements Serializable {
     @NotNull(message = "O Nº do quarto não pode ser nulo")
     @Column(name = "numeroquarto", nullable = false, length = 50)     
     private Integer numeroquarto;
+    @NotNull(message = "A pessoa não pode ser nula")
     @ManyToOne
     @JoinColumn(name="pessoa_id", referencedColumnName = "id", nullable = false)
     private Pessoa pessoa;
+    @NotNull(message = "O Condominio não pode ser nulo")
     @ManyToOne
     @JoinColumn(name="condominio_id", referencedColumnName = "id", nullable = false)
     private Condominio condominio;

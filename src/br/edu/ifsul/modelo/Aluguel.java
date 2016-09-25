@@ -43,10 +43,13 @@ public class Aluguel implements Serializable {
     @GeneratedValue(generator = "seq_aluguel", strategy = GenerationType.SEQUENCE)
     private Integer id;
     @Column(name = "valor", nullable = false)
+    @NotNull(message = "O valor não pode ser nulo")
     private Double valor;
+    @NotNull(message = "O Inicio do Contrato não pode ser nulo")
     @Temporal(TemporalType.DATE)
     @Column(name = "iniciocontrato", nullable = false)
     private Calendar inicioContrato;
+    @NotNull(message = "O Fim do Contrato não pode ser nulo")
     @Temporal(TemporalType.DATE)
     @Column(name = "fimcontrato", nullable = false)
     private Calendar fimContrato;
@@ -55,9 +58,11 @@ public class Aluguel implements Serializable {
     private Integer diaVencimento;
     @OneToMany(mappedBy = "aluguel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Mensalidade> mensalidades = new ArrayList<>();
+    @NotNull(message = "O Locatario não pode ser nulo")
     @ManyToOne
     @JoinColumn(name="locatario_id", referencedColumnName = "id", nullable = false)
     private Locatario locatario;
+    @NotNull(message = "A Unidade Condominial não pode ser nula")
     @ManyToOne
     @JoinColumn(name="unidadecond_id", referencedColumnName = "id", nullable = false)
     private UnidadeCondominial unidadeCond;

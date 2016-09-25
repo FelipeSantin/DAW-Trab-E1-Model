@@ -21,6 +21,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name = "locatario")
 public class Locatario extends Pessoa implements Serializable {
+    @NotNull(message = "A Renda não pode ser nula")
+    @Column(name = "renda", nullable = false)
     private Double renda;
     @Length(max = 50, message = "O local de trabalho não pode ter mais de {max} caracteres")
     @NotNull(message = "O local de trabalho não pode ser nulo")
