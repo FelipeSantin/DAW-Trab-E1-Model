@@ -43,7 +43,7 @@ public class TestePersistirUnidadeCondominial {
         boolean exception = false; // variavel que vai armazenar o resultado do teste
         try {
             Pessoa p = em.find(Pessoa.class, 1);
-            Condominio c = em.find(Condominio.class, 1);
+            Condominio c = em.find(Condominio.class, 6);
             Locatario l = em.find(Locatario.class, 2);
             
             UnidadeCondominial uc = new UnidadeCondominial();

@@ -39,7 +39,7 @@ public class TestePersistirMensalidade {
     public void teste(){
         boolean exception = false; // variavel que vai armazenar o resultado do teste
         try {
-            Aluguel a = em.find(Aluguel.class, 2);
+            Aluguel a = em.find(Aluguel.class, 6);
             Mensalidade m = new Mensalidade();
             m.setValor(2.0);
             m.setValorPagamento(0.0);

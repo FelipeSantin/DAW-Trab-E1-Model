@@ -41,7 +41,7 @@ public class TestePersistirAluguel {
         boolean exception = false; // variavel que vai armazenar o resultado do teste
         try {
             Locatario l = em.find(Locatario.class, 2);
-            UnidadeCondominial uc = em.find(UnidadeCondominial.class, 2);
+            UnidadeCondominial uc = em.find(UnidadeCondominial.class, 5);
             
             Aluguel a = new Aluguel();
             a.setInicioContrato(Calendar.getInstance());
